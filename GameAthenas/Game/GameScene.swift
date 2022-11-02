@@ -7,8 +7,11 @@
 
 import SpriteKit
 import GameKit
+import SwiftUI
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    var controllerGameSceneDelegate: GameSceneDelegate?
     
     var scrollNode: SKNode!
     var doorNode: SKNode!
@@ -19,7 +22,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     let playerCategory: UInt32 = 1 << 0
  // let groundCategory: UInt32 = 1 << 1
-    let doorCategory: UInt32 = 1 << 2
+    let doorCategory: UInt32 = 1 << 1
+    let empadaCategory: UInt32 = 1 << 2
     let scoreCategory: UInt32 = 1 << 3
 
     var score = 5
@@ -27,7 +31,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var highScoreLabelNode: SKLabelNode!
     let userDefaults: UserDefaults = UserDefaults.standard
     
+    
+    
     override func didMove(to view: SKView) {
+        
         backgroundColor = UIColor(.black)
         
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
@@ -46,6 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //setupGround()
         setupFloor()
         setupDoor()
+        setupEmpada()
         setupPlayer()
         
         setupScoreLabel()
@@ -65,7 +73,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setupDoor() {
         let doorTexture = SKTexture(imageNamed: "doorTexture")
-       // doorTexture.filteringMode = .nearest
+//        doorTexture.filteringMode = .nearest
         
         let movingDistance = CGFloat(doorTexture.size().height + self.frame.size.height)
         
@@ -81,28 +89,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             door.zPosition = 1
             
             let leftDoorSpawn = SKSpriteNode(texture: doorTexture)
-            leftDoorSpawn.position = CGPoint(x: -102, y: 200)
-
+            leftDoorSpawn.position = CGPoint(x: -100, y: 200)
+            
             leftDoorSpawn.physicsBody = SKPhysicsBody(rectangleOf: doorTexture.size())
             leftDoorSpawn.physicsBody?.categoryBitMask = self.doorCategory
-
+            
             leftDoorSpawn.physicsBody?.isDynamic = false
             
             
             let midDoorSpawn = SKSpriteNode(texture: doorTexture)
             midDoorSpawn.position = CGPoint(x: 0, y: 200)
-
+            
             midDoorSpawn.physicsBody = SKPhysicsBody(rectangleOf: doorTexture.size())
             midDoorSpawn.physicsBody?.categoryBitMask = self.doorCategory
-
+            
             midDoorSpawn.physicsBody?.isDynamic = false
             
             let rightDoorSpawn = SKSpriteNode(texture: doorTexture)
-            rightDoorSpawn.position = CGPoint(x: 98, y: 200)
-
+            rightDoorSpawn.position = CGPoint(x: 100, y: 200)
+            
             rightDoorSpawn.physicsBody = SKPhysicsBody(rectangleOf: doorTexture.size())
             rightDoorSpawn.physicsBody?.categoryBitMask = self.doorCategory
-
+            
             rightDoorSpawn.physicsBody?.isDynamic = false
             
             let random = Int.random(in: 0...2)
@@ -114,7 +122,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 door.addChild(rightDoorSpawn)
             }
             
-
             let scoreNode = SKNode()
             scoreNode.position = CGPoint(x: midDoorSpawn.size.width / 3, y: self.frame.height)
             scoreNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: midDoorSpawn.size.width, height: self.frame.size.height))
@@ -137,10 +144,83 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         doorNode.run(repeatForeverAnimation)
     }
     
+    func setupEmpada() {
+        
+        let empadaTexture = SKTexture(imageNamed: "empada")
+        
+        let movingDistance = CGFloat(empadaTexture.size().height + self.frame.size.height)
+        
+        let moveEmpada = SKAction.moveBy(x: 0, y: -movingDistance - 200, duration: 2)
+        
+        let removeEmpada = SKAction.removeFromParent()
+
+        let empadaAnimation = SKAction.sequence([moveEmpada, removeEmpada])
+
+        let createEmpadaAnimation = SKAction.run ({
+            let empada = SKNode()
+            empada.position = CGPoint(x: 200, y: self.frame.size.height + empadaTexture.size().height / 2)
+            empada.zPosition = 1
+            
+            let leftEmpadaSpawn = SKSpriteNode(texture: empadaTexture)
+            leftEmpadaSpawn.position = CGPoint(x: -100, y: 200)
+            
+            leftEmpadaSpawn.physicsBody = SKPhysicsBody(rectangleOf: empadaTexture.size())
+            leftEmpadaSpawn.physicsBody?.categoryBitMask = self.empadaCategory
+            
+            leftEmpadaSpawn.physicsBody?.isDynamic = false
+            
+            
+            let midEmpadaSpawn = SKSpriteNode(texture: empadaTexture)
+            midEmpadaSpawn.position = CGPoint(x: 0, y: 200)
+            
+            midEmpadaSpawn.physicsBody = SKPhysicsBody(rectangleOf: empadaTexture.size())
+            midEmpadaSpawn.physicsBody?.categoryBitMask = self.empadaCategory
+            
+            midEmpadaSpawn.physicsBody?.isDynamic = false
+            
+            let rightEmpadaSpawn = SKSpriteNode(texture: empadaTexture)
+            rightEmpadaSpawn.position = CGPoint(x: 100, y: 200)
+            
+            rightEmpadaSpawn.physicsBody = SKPhysicsBody(rectangleOf: empadaTexture.size())
+            rightEmpadaSpawn.physicsBody?.categoryBitMask = self.empadaCategory
+            
+            rightEmpadaSpawn.physicsBody?.isDynamic = false
+            
+            let random = Int.random(in: 0...2)
+            if random == 0 {
+                empada.addChild(leftEmpadaSpawn)
+            } else if random == 1{
+                empada.addChild(midEmpadaSpawn)
+            } else{
+                empada.addChild(rightEmpadaSpawn)
+            }
+            
+            let scoreNode = SKNode()
+            scoreNode.position = CGPoint(x: midEmpadaSpawn.size.width, y: self.frame.height)
+            scoreNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: midEmpadaSpawn.size.width , height: self.frame.size.height))
+            
+            scoreNode.physicsBody?.isDynamic = false
+            scoreNode.physicsBody?.categoryBitMask = self.scoreCategory
+            scoreNode.physicsBody?.contactTestBitMask = self.playerCategory
+            
+            empada.addChild(scoreNode)
+            
+            empada.run(empadaAnimation)
+            
+            self.empadaNode.addChild(empada)
+        })
+            
+            let waitAnimation = SKAction.wait(forDuration: 0.7)
+
+            let repeatForeverAnimation = SKAction.repeatForever(SKAction.sequence([createEmpadaAnimation, waitAnimation]))
+            
+            self.empadaNode.run(repeatForeverAnimation)
+    }
+    
     func setupPlayer() {
-        let playerTexture = SKTexture(imageNamed: "charBarroca")
+        let playerTexture = SKTexture(imageNamed: "barrocaTable")
         playerTexture.filteringMode = .linear
-        let playerTextureB = SKTexture(imageNamed: "charChico")
+        let playerTextureB = SKTexture(imageNamed: "barrocaTable")
         playerTextureB.filteringMode = .linear
 
         let textureAnimation = SKAction.animate(with: [playerTexture, playerTextureB], timePerFrame: 0.2)
@@ -181,14 +261,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let location = touch.location(in: self)
             
             player.position.x = location.x
-            //player.position.y = location.y
-            
-            
         }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
 
+        
         if scrollNode.speed <= 0 {
             return
         }
@@ -208,9 +286,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         } else {
             print("GameOver")
-
             scrollNode.speed = 0
-    
+            controllerGameSceneDelegate?.didUserFailedLevel()
         }
     }
     
@@ -247,7 +324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //        highScoreLabelNode.zPosition = 100
 //        highScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         
-        //let bestScore = userDefaults.integer(forKey: "BEST")
+        let bestScore = userDefaults.integer(forKey: "BEST")
         //highScoreLabelNode.text = "High Score:\(bestScore)"
        // self.addChild(highScoreLabelNode)
     }

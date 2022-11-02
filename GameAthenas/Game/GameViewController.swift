@@ -14,6 +14,16 @@ typealias Game = GameScene
 class GameViewController: UIViewController {
     
     var scene: GameScene?
+    var viewManager: ViewManager?
+    
+    init(viewManager: ViewManager){
+        super.init(nibName: nil, bundle: nil)
+        self.viewManager = viewManager
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
         super.loadView()
@@ -42,9 +52,11 @@ class GameViewController: UIViewController {
     
     func setupScene(){
         guard let view = self.view as? SKView, scene == nil else { return }
+        
         let newScene = GameScene(size: view.bounds.size)
         view.presentScene(newScene)
         self.scene = newScene
+        self.scene?.controllerGameSceneDelegate = self
     }
     
 }

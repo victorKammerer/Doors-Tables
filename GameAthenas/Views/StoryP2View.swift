@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StoryP2View: View {
+    
     var body: some View {
         ZStack{
             Image("bckgBlue2")

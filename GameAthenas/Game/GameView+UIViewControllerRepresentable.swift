@@ -6,29 +6,16 @@
 //
 
 import SwiftUI
-import SpriteKit
 
 struct GameView: UIViewControllerRepresentable {
+    
+    @EnvironmentObject private var viewManager: ViewManager
     
     typealias UIViewControllerType = GameViewController
     
     func makeUIViewController(context: Context) -> GameViewController {
-        return GameViewController()
+        return GameViewController(viewManager: viewManager)
     }
     
     func updateUIViewController(_ uiViewController: GameViewController, context: Context) {}
-}
-
-struct CharacterOneView: View {
-    
-    var body: some View {
-        GameView()
-            .ignoresSafeArea()
-    }
-}
-
-struct CharacterOneView_Previews: PreviewProvider {
-    static var previews: some View {
-        CharacterOneView()
-    }
 }
