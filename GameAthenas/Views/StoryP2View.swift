@@ -11,7 +11,7 @@ struct StoryP2View: View {
     
     var body: some View {
         ZStack{
-            Image("bckgBlue2")
+            Image("background2")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
@@ -20,16 +20,16 @@ struct StoryP2View: View {
                 ZStack{
                     Image("StoryBckgRect")
                         .resizable()
-                        .frame(width: 360, height: 540)
+                        .frame(width: 360, height: 550)
                         .padding(20)
                     
-                    VStack(spacing: -70){
-                        Image("s2")
+                    VStack(spacing: -50){
+                        Image("Story22")
                             .resizable()
-                            .frame(width: 160, height: 250)
+                            .frame(width: 175, height: 216)
                             .padding(20)
                         
-                        Text("Now the party is over and your mission is to help then get the table back inside without causing any damage. Help them but >>do not<< break any doors!")
+                        Text("OH NO!!! The boss called, he’s arriving soon and they have to put everything back to place so they won’t be fired. Now, your mission is to help them get the table inside. Do what you might but >>DO NOT<< break any doors!!")
                         
                             .font(.custom(
                                 "pixelEmulator",
@@ -37,8 +37,8 @@ struct StoryP2View: View {
                             .lineSpacing(4)
                             .multilineTextAlignment(.center)
                             .foregroundColor(.black)
-                            .padding(30)
-                            .frame(width: 360, height: 300)
+                            .padding(40)
+                            .frame(width: 360, height: 320)
                     }
                     
                 }

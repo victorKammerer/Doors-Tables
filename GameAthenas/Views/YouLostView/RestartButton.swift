@@ -21,10 +21,10 @@ struct RestartButtonView : View {
             actionForRestartButton()
             
         }, label: {
-            Image("replayButton")
+            Image("playAgainButton")
                 .resizable()
                 .scaledToFit()
-                .frame(width: 156, height: 58)
+                .frame(width: 200, height: 58)
         })
         .padding()
     }

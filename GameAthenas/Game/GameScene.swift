@@ -18,7 +18,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var empadaNode: SKNode!
     var player: SKSpriteNode!
     
-    var background = SKSpriteNode(imageNamed: "background")
+    var background = SKSpriteNode(imageNamed: "gameBackground")
 
     let playerCategory: UInt32 = 1 << 0
  // let groundCategory: UInt32 = 1 << 1
@@ -286,8 +286,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         } else {
             print("GameOver")
-            scrollNode.speed = 0
             controllerGameSceneDelegate?.didUserFailedLevel()
+            scrollNode.speed = 0
+
         }
     }
     

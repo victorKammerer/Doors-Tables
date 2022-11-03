@@ -18,69 +18,105 @@ struct YouLostView: View {
     
     var body: some View {
         ZStack{
-            Image("bckgBlue2")
+            Image("background2")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
             
-            VStack (spacing: 0){
+            VStack (alignment: .leading, spacing: 20){
                 
-                NavigationLink(destination: ContentView()){
+                NavigationLink(destination: HomePageView()){
                     Image("homeButton")
                         .resizable()
                         .frame(width: 58, height: 58)
-                        .navigationBarTitle("")
-                       // .rotation3DEffect(.degrees(180), axis: (x: 0, y: 90, z: 0))
-                        .position(x: 70 ,y: 40)
+                        //.navigationBarTitle("")
                         .navigationBarBackButtonHidden(true)
                         .navigationBarHidden(true)
                 }
                 
-                ZStack{
-                    Image("StoryBckgRect")
-                        .resizable()
-                        .frame(width: 360, height: 480)
-                        .padding(20)
+                VStack(){
                     
-                    VStack (spacing: -80){
-                        Image("s1")
+                    ZStack{
+                        Image("StoryBckgRect")
                             .resizable()
-                            .frame(width: 160, height: 160)
+                            .frame(width: 360, height: 520)
                             .padding(0)
                         
-                        Text("You have been laid off!!!")
-                            .font(.custom(
-                                "pixelEmulator",
-                                fixedSize: 40))
-                            .lineSpacing(4)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.black)
-                            .padding(0)
-                            .frame(width: 360, height: 300)
+                        VStack (spacing: -90){
+                            
+                            VStack(spacing: -80){
+                                
+                                HStack(spacing: 100){
+                                    Image("charHigorSelec")
+                                        .resizable()
+                                        .frame(width: 76, height: 127)
+                                        .padding(0)
+                                    
+                                    Image("charArquiSelec")
+                                        .resizable()
+                                        .frame(width: 76, height: 127)
+                                        .padding(0)
+                                }
+                                
+                                
+                                Text("You are fired!!!")
+                                    .font(.custom(
+                                        "pixelEmulator",
+                                        fixedSize: 40))
+                                    .lineSpacing(4)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.black)
+                                    .frame(width: 360, height: 300)
+                                
+                                VStack(spacing: -100){
+                                    Text("Score: \(GameScene().score)")
+                                        .font(.custom(
+                                            "pixelEmulator",
+                                            fixedSize: 25))
+                                        .lineSpacing(4)
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(.black)
+                                    // .padding(0)
+                                        .frame(width: 360, height: 120)
+                                    
+                                    Text("Highscore: \(GameScene().userDefaults.integer(forKey: "BEST"))")
+                                        .font(.custom(
+                                            "pixelEmulator",
+                                            fixedSize: 25))
+                                        .lineSpacing(4)
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(.black)
+                                    // .padding(0)
+                                        .frame(width: 360, height: 150)
+                                    
+//                                    NavigationLink(destination: CharacterSelectionView()){
+//                                        Image("playAgainButton")
+//                                            .resizable()
+//                                            .frame(width: 180, height: 38)
+//                                            .navigationBarTitle("")
+//                                            .position(x: 390, y: 150)
+//                                            .navigationBarBackButtonHidden(true)
+//                                            .navigationBarHidden(true)
+//                                }
+                                    Button(action: {
+                                        print("starIcon pressed")
+                                        actionForRestart()
+                                        
+                                    }, label: {
+                                        Image("playAgainButton")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 200, height: 65)
+                                    })
+                                    .padding()
+                                
+                                }
+                            }
+
+                        }
                         
-                        Text("Score: \(GameScene().score)")
-                            .font(.custom(
-                                "pixelEmulator",
-                                fixedSize: 20))
-                            .lineSpacing(4)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.black)
-                            // .padding(0)
-                            .frame(width: 360, height: 120)
-                        
-                        Text("Highscore: \(GameScene().userDefaults.integer(forKey: "BEST"))")
-                            .font(.custom(
-                                "pixelEmulator",
-                                fixedSize: 20))
-                            .lineSpacing(4)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.black)
-                           // .padding(0)
-                            .frame(width: 360, height: 150)
                     }
-                    
                 }
-                
             }
         }
     }

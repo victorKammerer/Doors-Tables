@@ -12,11 +12,13 @@ struct HomePageView : View {
     
     @EnvironmentObject private var viewManager: ViewManager
     
+    @State private var showingPopover = false
+    
     var body: some View {
         NavigationView{
             
             ZStack {
-                Image("bckgBlue2")
+                Image("background2")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .ignoresSafeArea()
@@ -30,9 +32,9 @@ struct HomePageView : View {
                                     .resizable()
                                     .frame(width: 300, height: 140)
                                 
-                                Image("homeImage")
+                                Image("charBarrocaTable")
                                     .resizable()
-                                    .frame(width: 156, height: 242)
+                                    .frame(width: 156, height: 262)
                             }
                             
                             NavigationLink(destination: StoryP1View()){
@@ -46,24 +48,109 @@ struct HomePageView : View {
                             
                             HStack(spacing: 40){
                                 
-                                
-                                Image("soundOnButton")
-                                    .resizable()
-                                    .frame(width: 58, height: 58)
-                                
-                                
-                                Image("infoButton")
-                                    .resizable()
-                                    .frame(width: 58, height: 58)
+                                //
+                                //                                Image("soundOnButton")
+                                //                                    .resizable()
+                                //
+                                Button(action: {
+                                    showingPopover = true
+                                }) {
+                                    Image("infoButton")
+                                        .resizable()
+                                        .frame(width: 58, height: 58)
+                                }
+                                .popover(isPresented: $showingPopover) {
+                                    ZStack{
+                                        Image("background2")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .ignoresSafeArea()
+                                        
+                                        ZStack{
+                                            Image("StoryBckgRect")
+                                                .resizable()
+                                                .frame(width: 340, height: 500)
+                                                .padding(20)
+                                            
+                                            VStack (spacing: -200){
+                                                Text("Game Created and designed by:")
+                                                    .font(.custom(
+                                                        "pixelEmulator",
+                                                        fixedSize: 20))
+                                                    .lineSpacing(4)
+                                                    .multilineTextAlignment(.center)
+                                                    .foregroundColor(.black)
+                                                    .padding(30)
+                                                    .frame(width: 340, height: 300)
+                                                
+                                                VStack (spacing: -220){
+                                                    Text("Joana Lima")
+                                                    
+                                                        .font(.custom(
+                                                            "pixelEmulator",
+                                                            fixedSize: 25))
+                                                        .lineSpacing(4)
+                                                        .multilineTextAlignment(.center)
+                                                        .foregroundColor(.black)
+                                                        .padding(30)
+                                                        .frame(width: 340, height: 300)
+                                                    Text("Maria Isabel")
+                                                    
+                                                        .font(.custom(
+                                                            "pixelEmulator",
+                                                            fixedSize: 25))
+                                                        .lineSpacing(4)
+                                                        .multilineTextAlignment(.center)
+                                                        .foregroundColor(.black)
+                                                        .padding(30)
+                                                        .frame(width: 340, height: 300)
+                                                    Text("Natália Oliveira")
+                                                    
+                                                        .font(.custom(
+                                                            "pixelEmulator",
+                                                            fixedSize: 25))
+                                                        .lineSpacing(4)
+                                                        .multilineTextAlignment(.center)
+                                                        .foregroundColor(.black)
+                                                        .padding(30)
+                                                        .frame(width: 340, height: 300)
+                                                    Text("Victor Kammerer")
+                                                    
+                                                        .font(.custom(
+                                                            "pixelEmulator",
+                                                            fixedSize: 25))
+                                                        .lineSpacing(4)
+                                                        .multilineTextAlignment(.center)
+                                                        .foregroundColor(.black)
+                                                        .padding(30)
+                                                        .frame(width: 340, height: 300)
+                                                }
+                                            }
+                                        }
+                                        
+                                    }
+                                    
+                                }
                                 
                             }
+                            
                         }
                     )
             }
             
         }
+        .navigationBarBackButtonHidden(true)
+        
     }
 }
+
+struct HomePage_Previews: PreviewProvider {
+    static var previews: some View {
+        HomePageView()
+    }
+}
+
+
 
 
 

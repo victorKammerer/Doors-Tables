@@ -23,7 +23,9 @@ class ViewManager: ObservableObject {
     
     func didUserTapRestartButton(){
         showingYouLost = false
-        isGameRunning = true
+        isGameRunning = false
+        showingHomePage = false
+        showingCharSelect = true
     }
     
     func didUserTapGoToMenu(){

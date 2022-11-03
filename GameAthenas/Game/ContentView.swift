@@ -23,6 +23,10 @@ struct ContentView: View {
             homePage.ignoresSafeArea(.all)
         }
         
+        if viewManager.showingCharSelect {
+            CharacterSelectionView().ignoresSafeArea(.all)
+        }
+        
         if viewManager.showingYouLost {
             YouLostView(actionForRestart: {}, actionForMenu: {}).ignoresSafeArea(.all)
         }
